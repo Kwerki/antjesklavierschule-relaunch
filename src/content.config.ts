@@ -55,6 +55,9 @@ const seiten = defineCollection({
     einleitung: z.string().optional(),
     angebote: z.array(angebot).default([]),
     zitat: z.string().optional(),
+    // Kontakt-Kasten am Seitenende (nur wenn ein Text gesetzt ist)
+    kontaktText: z.string().optional(),
+    kontaktTelefon: z.enum(['mobil', 'festnetz']).default('mobil'),
     // Spezialbereiche, die unter dem Text angezeigt werden
     bereich: z.enum(['keiner', 'aktuelles', 'youtube', 'kontakt']).default('keiner'),
   }),

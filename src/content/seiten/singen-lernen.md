@@ -31,6 +31,8 @@ angebote:
     untertitel: 14-tägig – pausiert zur Zeit
     text: Im Singkreis werden hauptsächlich einfache Lieder und Kanons gesungen. In vertrauensbildender Atmosphäre erlebst du emotionalen Ausgleich, Stärkung der Vitalität und des Selbstverständnisses. Übungen zum Atmen und Einsingen sind Teil des Programms.
 zitat: Das Leben ist ein Lied, singe es. (Mutter Teresa)
+kontaktText: Schreib mir eine E-Mail oder rufe mich gerne an. Ich freue mich, dich kennenzulernen.
+kontaktTelefon: festnetz
 ---
 
 Du suchst deinen Ausdruck für etwas, was raus will aus dir.
@@ -53,9 +55,4 @@ Hast du das Lied deines Lebens lange nicht mehr gesungen?
 Singst du schon und deine Stimme möchte sich noch mehr entfalten?
 Singst du und suchst geeignete Lieder, um dich auszudrücken?
 
-Schau in meinem [YouTube-Kanal](/youtube) Singen & Atmen vorbei,
-schreib mir eine E-Mail oder rufe mich gerne an:
-[antjes-klavierschule@outlook.com](mailto:antjes-klavierschule@outlook.com)
-[0 56 81 / 8 18 96 47](tel:+4956818189647)
-
-Ich freue mich, dich kennenzulernen.
+Schau in meinem [YouTube-Kanal](/youtube) Singen & Atmen vorbei.

@@ -7,6 +7,8 @@ logoZusatz: Klavierspielen
 logoVariante: klavier
 bild: /images/uploads/klavier-1.jpg
 bildAlt: Hände auf einer Klaviertastatur
+kontaktText: Erfolg von der ersten Stunde an! Schildere mir dein Anliegen persönlich.
+kontaktTelefon: festnetz
 einleitung: Klavier spielen macht Spaß!
 angebote:
   - titel: Klavierunterricht
@@ -23,8 +25,6 @@ Sich beim Spielen eines einfachen Liedes glücklich zu fühlen?
 Auf einer Feier ein beliebtes Stück zu präsentieren und stolz auf sich selbst zu sein?
 Dann nicht länger zögern und Termin für eine Kennenlernstunde vereinbaren! :)
 
-[0 56 81 – 8 18 96 47](tel:+4956818189647)
-
 **Muss man Noten können, um Klavier zu spielen?**
 Für den Anfang braucht man keine Noten.
 Da geht es darum, die Ohren zu öffnen, die Tastatur kennenzulernen und sich am Klavier wohlzufühlen.
@@ -33,8 +33,6 @@ Da geht es darum, die Ohren zu öffnen, die Tastatur kennenzulernen und sich am 
 Ehrlich gesagt, stellt sich der Spaß ein, wenn du ein Stück gut beherrschst, es gut in den Fingern sitzt. Wenn nicht viel Zeit zum Üben da ist, brauchst du gute Tipps, um effektiv zu üben. Auch der mentale Umgang mit dem Stück, z. B. eine Vorstellung haben, wie es klingen soll, ist wichtig.
 Wenn dir das alles zu kompliziert klingt, du dennoch gern Klavier spielen möchtest, kannst du bei mir das Spielen nach Intuition lernen. Dafür braucht man keine Noten :)
 
-Erfolg von der ersten Stunde an: [0 56 81 / 8 18 96 47](tel:+4956818189647)
-
 **Warum es gut ist, sich den Wunsch, Klavier zu spielen, zu erfüllen:**
 Deine musikalische Veranlagung ist ein Lebenshunger, der gestillt werden möchte.
 Auch die sanften Zwischentöne deiner Persönlichkeit wollen sich Gehör verschaffen.
@@ -42,5 +40,3 @@ Durch Schulung von Aufmerksamkeit und Konzentration bist du im Alltag fokussiert
 
 **Aber wo kriege ich denn ein Klavier her, das ist ja so ein großes schweres Ding?**
 Bei Kleinanzeigen stehen oft brauchbare Klaviere in der Nähe drin, manchmal sogar geschenkt. Mit Tragegurten lässt sich der Transport eines Klaviers bewältigen.
-
-Schildere mir dein Anliegen persönlich: [0 56 81 / 8 18 96 47](tel:+4956818189647)

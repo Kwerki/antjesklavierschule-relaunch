@@ -5,6 +5,7 @@ import Angebot from '../components/Angebot.astro';
 import YouTube from '../components/YouTube.astro';
 import Kontaktkarte from '../components/Kontaktkarte.astro';
 import Neuigkeit from '../components/Neuigkeit.astro';
+import Kontaktaufruf from '../components/Kontaktaufruf.astro';
 import einstellungen from '../data/einstellungen.json';
 import { url } from '../lib/url';
 
@@ -80,6 +81,8 @@ const neuigkeiten =
       }
 
       {d.bereich === 'kontakt' && <Kontaktkarte />}
+
+      {d.kontaktText && d.bereich !== 'kontakt' && <Kontaktaufruf text={d.kontaktText} telefon={d.kontaktTelefon} />}
     </div>
   </section>
 </Layout>

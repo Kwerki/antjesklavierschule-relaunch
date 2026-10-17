@@ -7,6 +7,8 @@ logoZusatz: Atmen
 logoVariante: atmen
 bild: /images/uploads/atmen-1.jpg
 bildAlt: Antje Wolf-Hublitz atmet tief durch
+kontaktText: Individueller Termin nach Absprache.
+kontaktTelefon: mobil
 einleitung: Richtig atmen. Kann man denn auch falsch atmen?
 angebote:
   - titel: Atemanwendung Atemmassage
@@ -14,7 +16,7 @@ angebote:
       - "Teilnehmer: 1 Person"
       - "Dauer: 50 min"
       - "Ort: Antjens Salon"
-      - "Individueller Termin nach Absprache unter Tel. 0152 – 044 85 100 oder 0 56 81 – 8 18 96 47"
+      - Individueller Termin nach Absprache
     preise:
       - "10er Karte: 580 €"
       - "Einzelbuchung: 60 €"

@@ -1,10 +1,8 @@
 ---
 import { getCollection, getEntry, render } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import einstellungen from '../data/einstellungen.json';
 import { url } from '../lib/url';
 import { auszug, md } from '../lib/markdown';
-import { tel } from '../lib/kontakt';
 
 const start = await getEntry('startseite', 'index');
 if (!start) throw new Error('Startseite fehlt: src/content/startseite/index.md');
@@ -28,7 +26,6 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
         <p class="held__motto">{d.motto}</p>
         <div class="held__aktionen">
           <a class="button" href={url('/kontakt')}>Kennenlernstunde vereinbaren</a>
-          <a class="button button--hell" href={tel(einstellungen.telefonFestnetz)}>{einstellungen.telefonFestnetz}</a>
         </div>
       </div>
       <div class="held__bild">
@@ -118,9 +115,7 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
             <div>
               <h2>{d.praxis.titel}</h2>
               <div class="prose" set:html={md(d.praxis.text)} />
-              <a class="button" href={tel(einstellungen.telefonMobil)}>
-                Termin: {einstellungen.telefonMobil}
-              </a>
+              <a class="button" href={url('/kontakt')}>Termin vereinbaren</a>
             </div>
           </div>
         </div>

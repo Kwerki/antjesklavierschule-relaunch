@@ -115,6 +115,14 @@ collections:
           - { name: text, label: Beschreibung, widget: markdown, required: false, buttons: [bold, italic, link, bulleted-list], editor_components: [] }
           - { name: bild, label: Bild, widget: image, required: false }
       - { name: zitat, label: Zitat am Seitenende, widget: string, required: false }
+      - { name: kontaktText, label: Kontakt-Kasten am Seitenende, widget: string, required: false, hint: 'Kurzer Satz, z. B. „Individueller Termin nach Absprache.“ Darunter erscheinen Telefon- und E-Mail-Knopf. Leer lassen = kein Kasten.' }
+      - name: kontaktTelefon
+        label: Telefonnummer im Kontakt-Kasten
+        widget: select
+        default: mobil
+        options:
+          - { label: Mobil, value: mobil }
+          - { label: Festnetz, value: festnetz }
       - { name: beschreibung, label: Kurzbeschreibung für Google, widget: text, required: false }
       - { name: menu, label: Im Hauptmenü anzeigen, widget: boolean, default: true }
       - { name: reihenfolge, label: Position im Menü, widget: number, value_type: int, default: 50, hint: 'Kleinere Zahl = weiter links' }
