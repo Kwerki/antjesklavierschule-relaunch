@@ -12,7 +12,13 @@ interface Props {
 
 const { logoZusatz, logoVariante = 'standard' } = Astro.props;
 const zusatz = logoZusatz || einstellungen.slogan;
-const menu = await getMenu();
+const hauptmenu = await getMenu();
+// Zusätzlicher Punkt, der nur im aufklappbaren Handy-Menü erscheint (vor „Kontakt“)
+const menu: { titel: string; pfad: string; nurMobil?: boolean }[] = [...hauptmenu];
+if (!menu.some((m) => m.pfad === '/aktuelles')) {
+  const kontakt = menu.findIndex((m) => m.pfad === '/kontakt');
+  menu.splice(kontakt === -1 ? menu.length : kontakt, 0, { titel: 'Aktuelles', pfad: '/aktuelles', nurMobil: true });
+}
 const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '').replace(/\/$/, '') || '/';
 ---
 
@@ -41,7 +47,7 @@ const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$
       </li>
       {
         menu.map((m) => (
-          <li>
+          <li class:list={{ 'nur-mobil': m.nurMobil }}>
             <a
               href={url(m.pfad)}
               class:list={{ 'ist-kontakt': m.pfad === '/kontakt' }}
@@ -198,6 +204,10 @@ const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$
     color: var(--weiss);
   }
 
+  .nur-mobil {
+    display: none;
+  }
+
   .kopf__toggle {
     display: none;
     align-items: center;
@@ -278,6 +288,9 @@ const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$
     }
     .kopf__toggle {
       display: inline-flex;
+    }
+    .nur-mobil {
+      display: block;
     }
     .kopf__nav {
       display: none;
