@@ -6,4 +6,4 @@ reihenfolge: 50
 bereich: youtube
 ---
 
-Hör doch mal rein! Hier findest du Videos von mir – weitere gibt es auf meinem YouTube-Kanal.
+

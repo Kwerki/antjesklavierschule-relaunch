@@ -6,4 +6,5 @@ reihenfolge: 70
 bereich: kontakt
 ---
 
-Wünsche, Vorschläge, Anregungen oder eine dringende Mitteilung? Ruf mich gerne an, schreib mir eine SMS oder eine E-Mail – ich freue mich, von dir zu hören!
+Wünsche, Vorschläge, Anregungen, dringende Mitteilung?
+Schreibt mir eine E-Mail an [antjes-klavierschule@outlook.com](mailto:antjes-klavierschule@outlook.com).

@@ -23,7 +23,6 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
   <section class="held">
     <div class="container held__raster">
       <div class="held__text">
-        <p class="held__vorzeile">{einstellungen.untertitel}</p>
         <h1>{d.title}</h1>
         <p class="held__motto">{d.motto}</p>
         <div class="held__aktionen">
@@ -51,7 +50,6 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
                 <a class="meldung" href={url(`/aktuelles#${n.id}`)}>
                   <time datetime={n.data.datum.toISOString().slice(0, 10)}>{datumFormat(n.data.datum)}</time>
                   <span class="meldung__titel">{n.data.title}</span>
-                  <span class="meldung__text">{auszug(n.body, 140)}</span>
                 </a>
               </li>
             ))}
@@ -73,7 +71,6 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
     d.kacheln.length > 0 && (
       <section class="abschnitt kacheln-bereich">
         <div class="container">
-          <h2 class="zentriert">Was dich in der AtemWelt erwartet</h2>
           <ul class="kacheln">
             {d.kacheln.map((k) => (
               <li>
@@ -103,7 +100,7 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
           <div>
             <p class="ueber__vorzeile">Über mich</p>
             <h2>{ueberMich.data.einleitung ?? ueberMich.data.title}</h2>
-            <p>{auszug(ueberMich.body, 420)}</p>
+            <p>{auszug(ueberMich.body, 170)}</p>
             <a class="button" href={url('/ueber-mich')}>Mehr über mich</a>
           </div>
         </div>
@@ -144,14 +141,6 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
     grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
     gap: clamp(1.5rem, 4vw, 3.5rem);
     align-items: center;
-  }
-  .held__vorzeile {
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-size: 0.8rem;
-    color: var(--orange);
-    font-weight: 600;
-    margin-bottom: 0.75rem;
   }
   .held h1 {
     font-size: clamp(2.6rem, 7vw, 4.4rem);
@@ -304,11 +293,6 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
     font-size: 1.35rem;
     line-height: 1.25;
     color: var(--rot);
-  }
-  .meldung__text {
-    font-size: 0.95rem;
-    color: var(--text-leise);
-    line-height: 1.55;
   }
 
   .ueber {
