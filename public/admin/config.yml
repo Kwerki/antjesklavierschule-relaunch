@@ -6,10 +6,12 @@ backend:
   name: github
   repo: Kwerki/antjesklavierschule-relaunch
   branch: main
-  # Login: Antje meldet sich mit einem GitHub-Zugangstoken an (siehe ANLEITUNG.md).
-  # Für "Mit GitHub anmelden" per Knopfdruck kann später ein kostenloser
-  # Sveltia-CMS-Authenticator (Cloudflare Worker) eingetragen werden:
+  # Login per GitHub-Zugangstoken (siehe ANLEITUNG.md).
+  # Für "Mit GitHub anmelden" per Knopfdruck später einen kostenlosen
+  # Sveltia-CMS-Authenticator (Cloudflare Worker) einrichten, dann
+  # base_url eintragen und "oauth" bei auth_methods ergänzen:
   # base_url: https://sveltia-cms-auth.<account>.workers.dev
+  auth_methods: [token]
   commit_messages:
     create: 'Neu: {{collection}} „{{slug}}“'
     update: 'Aktualisiert: {{collection}} „{{slug}}“'
