@@ -21,6 +21,7 @@ kacheln:
     text: Klavier spielen macht Spaß – von der ersten Stunde an.
     bild: /images/uploads/kachel-klavier.jpg
     link: /klavierunterricht
+aktuellesAnzahl: 3
 praxis:
   titel: Für Personen, die Stimm-, Sprech- oder Sprachtherapie wünschen
   text: In der **Praxis AtemWelt Homberg (Efze)**, Schwenkenweg 6, behandle ich Patientinnen und Patienten mit gesetzlicher oder privater Krankenversicherung. Mehr dazu unter [Sprechcoaching](/sprechcoaching).

@@ -1,15 +1,22 @@
 ---
-import { getEntry, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import einstellungen from '../data/einstellungen.json';
 import { url } from '../lib/url';
-import { md } from '../lib/markdown';
+import { auszug, md } from '../lib/markdown';
 import { tel } from '../lib/kontakt';
 
 const start = await getEntry('startseite', 'index');
 if (!start) throw new Error('Startseite fehlt: src/content/startseite/index.md');
 const { Content } = await render(start);
 const d = start.data;
+
+const neuigkeiten = (await getCollection('aktuelles', ({ data }) => !data.entwurf))
+  .sort((a, b) => b.data.datum.valueOf() - a.data.datum.valueOf())
+  .slice(0, d.aktuellesAnzahl);
+const datumFormat = (datum: Date) => datum.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const ueberMich = await getEntry('seiten', 'ueber-mich');
 ---
 
 <Layout beschreibung={d.beschreibung} bild={d.bild}>
@@ -29,6 +36,30 @@ const d = start.data;
       </div>
     </div>
   </section>
+
+  {
+    neuigkeiten.length > 0 && (
+      <section class="abschnitt abschnitt--eng aktuelles" aria-labelledby="aktuelles-titel">
+        <div class="container">
+          <div class="abschnitt__kopf">
+            <h2 id="aktuelles-titel">Aktuelles</h2>
+            <a href={url('/aktuelles')}>Alle Neuigkeiten →</a>
+          </div>
+          <ul class="aktuelles__liste">
+            {neuigkeiten.map((n) => (
+              <li>
+                <a class="meldung" href={url(`/aktuelles#${n.id}`)}>
+                  <time datetime={n.data.datum.toISOString().slice(0, 10)}>{datumFormat(n.data.datum)}</time>
+                  <span class="meldung__titel">{n.data.title}</span>
+                  <span class="meldung__text">{auszug(n.body, 140)}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
 
   <section class="abschnitt">
     <div class="container willkommen">
@@ -56,6 +87,25 @@ const d = start.data;
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+    )
+  }
+
+
+  {
+    ueberMich && (
+      <section class="abschnitt">
+        <div class="container ueber">
+          {ueberMich.data.bild && (
+            <img class="ueber__bild" src={url(ueberMich.data.bild)} alt={ueberMich.data.bildAlt} loading="lazy" />
+          )}
+          <div>
+            <p class="ueber__vorzeile">Über mich</p>
+            <h2>{ueberMich.data.einleitung ?? ueberMich.data.title}</h2>
+            <p>{auszug(ueberMich.body, 420)}</p>
+            <a class="button" href={url('/ueber-mich')}>Mehr über mich</a>
+          </div>
         </div>
       </section>
     )
@@ -194,6 +244,99 @@ const d = start.data;
     line-height: 1.45;
   }
 
+  .abschnitt--eng {
+    padding-block: clamp(2rem, 4vw, 3rem);
+  }
+  .abschnitt__kopf {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .abschnitt__kopf h2 {
+    margin: 0;
+  }
+  .abschnitt__kopf a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .aktuelles {
+    background: var(--weiss);
+    border-block: 1px solid var(--linie);
+  }
+  .aktuelles__liste {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .meldung {
+    display: grid;
+    gap: 0.35rem;
+    height: 100%;
+    padding: 1.25rem 1.4rem;
+    background: var(--creme-hell);
+    border: 1px solid var(--linie);
+    border-left: 5px solid var(--orange);
+    border-radius: var(--radius);
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .meldung:hover {
+    color: var(--text);
+    transform: translateY(-2px);
+    box-shadow: var(--schatten);
+  }
+  .meldung time {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--orange);
+    font-weight: 600;
+  }
+  .meldung__titel {
+    font-family: var(--schrift-zier);
+    font-size: 1.35rem;
+    line-height: 1.25;
+    color: var(--rot);
+  }
+  .meldung__text {
+    font-size: 0.95rem;
+    color: var(--text-leise);
+    line-height: 1.55;
+  }
+
+  .ueber {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: clamp(1.5rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .ueber__bild {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: 45% center;
+    border-radius: 50%;
+    box-shadow: var(--schatten);
+  }
+  .ueber h2 {
+    margin-top: 0.25rem;
+  }
+  .ueber__vorzeile {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.8rem;
+    color: var(--orange);
+    font-weight: 600;
+    margin: 0;
+  }
+
   .praxis {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -219,6 +362,13 @@ const d = start.data;
     }
     .held__bild {
       order: -1;
+    }
+    .ueber {
+      grid-template-columns: 1fr;
+    }
+    .ueber__bild {
+      max-width: 22rem;
+      margin-inline: auto;
     }
     .praxis {
       grid-template-columns: 1fr;

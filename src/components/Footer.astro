@@ -36,6 +36,8 @@ const jahr = new Date().getFullYear();
   <div class="container fuss__unten">
     <p>© {jahr} {einstellungen.inhaberin}</p>
     <ul>
+      <li><a href={url('/ueber-mich')}>Über mich</a></li>
+      <li><a href={url('/aktuelles')}>Aktuelles</a></li>
       <li><a href={url('/impressum')}>Impressum</a></li>
       <li><a href={url('/datenschutz')}>Datenschutz</a></li>
     </ul>
@@ -97,7 +99,8 @@ const jahr = new Date().getFullYear();
   }
   .fuss__unten ul {
     display: flex;
-    gap: 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
     list-style: none;
     margin: 0;
     padding: 0;

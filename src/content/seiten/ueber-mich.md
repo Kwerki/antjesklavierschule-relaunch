@@ -1,7 +1,7 @@
 ---
 title: Über mich
 beschreibung: Antje Wolf-Hublitz – Klavierlehrerin, Sängerin und staatlich geprüfte Atem-, Sprech- und Stimmlehrerin.
-menu: true
+menu: false
 reihenfolge: 5
 bild: /images/uploads/ueber-mich.jpg
 bildAlt: Antje Wolf-Hublitz lächelnd am Flügel

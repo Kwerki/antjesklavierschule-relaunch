@@ -69,6 +69,7 @@ collections:
               - { name: text, label: Kurzer Text, widget: string, required: false }
               - { name: bild, label: Bild, widget: image }
               - { name: link, label: Link, widget: string, hint: 'z. B. /klavierunterricht' }
+          - { name: aktuellesAnzahl, label: Anzahl Neuigkeiten auf der Startseite, widget: number, value_type: int, min: 0, max: 6, default: 3, hint: '0 = keine Neuigkeiten auf der Startseite anzeigen' }
           - name: praxis
             label: Hinweis-Box Praxis
             widget: object

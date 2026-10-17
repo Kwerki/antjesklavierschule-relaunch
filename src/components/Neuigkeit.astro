@@ -11,7 +11,7 @@ const { Content } = await render(eintrag);
 const datum = eintrag.data.datum.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 
-<article class="neuigkeit">
+<article class="neuigkeit" id={eintrag.id}>
   {eintrag.data.bild && <img src={url(eintrag.data.bild)} alt="" loading="lazy" />}
   <time datetime={eintrag.data.datum.toISOString().slice(0, 10)}>{datum}</time>
   <h2>{eintrag.data.title}</h2>

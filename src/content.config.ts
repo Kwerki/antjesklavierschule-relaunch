@@ -31,6 +31,7 @@ const startseite = defineCollection({
         }),
       )
       .default([]),
+    aktuellesAnzahl: z.number().int().min(0).default(3),
     praxis: z
       .object({
         titel: z.string(),
