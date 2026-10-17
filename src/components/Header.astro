@@ -3,37 +3,38 @@ import { getMenu } from '../lib/navigation';
 import { url } from '../lib/url';
 import einstellungen from '../data/einstellungen.json';
 
-const menu = await getMenu();
+const menu = [{ titel: 'Home', pfad: '/' }, ...(await getMenu())];
 const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '').replace(/\/$/, '') || '/';
-const istAktiv = (pfad: string) => aktuell === pfad;
 ---
 
 <header class="kopf">
-  <div class="container kopf__innen">
+  <div class="kopf__marke">
     <a class="kopf__logo" href={url('/')} aria-label={`${einstellungen.name} – zur Startseite`}>
       <img src={url('/images/brand/logo-home.png')} alt={`${einstellungen.name} – ${einstellungen.slogan}`} width="744" height="361" />
     </a>
-
     <button class="kopf__toggle" aria-expanded="false" aria-controls="hauptmenu">
       <span class="kopf__toggle-linien" aria-hidden="true"></span>
       <span>Menü</span>
     </button>
-
-    <nav id="hauptmenu" class="kopf__nav" aria-label="Hauptmenü">
-      <ul>
-        <li><a href={url('/')} aria-current={istAktiv('/') ? 'page' : undefined}>Home</a></li>
-        {
-          menu.map((m) => (
-            <li>
-              <a href={url(m.pfad)} aria-current={istAktiv(m.pfad) ? 'page' : undefined}>
-                {m.titel}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
   </div>
+
+  <nav id="hauptmenu" class="kopf__nav" aria-label="Hauptmenü">
+    <ul>
+      {
+        menu.map((m) => (
+          <li>
+            <a
+              href={url(m.pfad)}
+              class:list={{ 'ist-kontakt': m.pfad === '/kontakt' }}
+              aria-current={aktuell === m.pfad ? 'page' : undefined}
+            >
+              {m.titel}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </header>
 
 <script>
@@ -47,57 +48,77 @@ const istAktiv = (pfad: string) => aktuell === pfad;
 </script>
 
 <style>
+  /* Desktop: Logo-Zeile scrollt weg, die Menüleiste bleibt oben stehen */
   .kopf {
-    background: var(--weiss);
-    border-bottom: 1px solid var(--linie);
+    --logo-zeile: 7.5rem;
     position: sticky;
-    top: 0;
+    top: calc(-1 * var(--logo-zeile));
     z-index: 50;
+    background: var(--weiss);
+    box-shadow: 0 1px 0 var(--linie);
   }
-  .kopf__innen {
+
+  .kopf__marke {
+    height: var(--logo-zeile);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    min-height: 5rem;
+    justify-content: center;
   }
   .kopf__logo img {
-    width: clamp(150px, 20vw, 210px);
+    width: 230px;
     height: auto;
-    margin-block: 0.25rem;
+  }
+
+  .kopf__nav {
+    border-top: 1px solid var(--linie);
+    background: var(--weiss);
   }
   .kopf__nav ul {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 0.25rem 1rem;
-    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.15rem;
     list-style: none;
-    margin: 0;
-    padding: 0;
+    margin: 0 auto;
+    padding: 0.55rem 1rem;
+    max-width: var(--breite);
   }
   .kopf__nav a {
+    display: block;
+    white-space: nowrap;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
     color: var(--text);
     text-decoration: none;
-    font-size: 0.98rem;
-    padding: 0.35rem 0;
-    border-bottom: 2px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
+    font-size: 0.97rem;
+    transition: background 0.2s, color 0.2s;
   }
   .kopf__nav a:hover {
+    background: var(--creme);
     color: var(--rot);
-    border-color: var(--orange);
   }
   .kopf__nav a[aria-current='page'] {
-    color: var(--rot);
-    border-color: var(--rot);
+    background: var(--orange-hell);
+    color: var(--rot-dunkel);
+    font-weight: 600;
+  }
+  .kopf__nav a.ist-kontakt {
+    background: var(--rot);
+    color: var(--weiss);
+    margin-left: 0.5rem;
+    font-weight: 600;
+  }
+  .kopf__nav a.ist-kontakt:hover,
+  .kopf__nav a.ist-kontakt[aria-current='page'] {
+    background: var(--orange);
+    color: var(--weiss);
   }
 
   .kopf__toggle {
     display: none;
     align-items: center;
     gap: 0.6rem;
-    background: none;
+    background: var(--weiss);
     border: 1px solid var(--linie);
     border-radius: 999px;
     padding: 0.5rem 1rem;
@@ -114,7 +135,7 @@ const istAktiv = (pfad: string) => aktuell === pfad;
     background: currentColor;
     border-radius: 2px;
     position: relative;
-    transition: transform 0.2s;
+    transition: transform 0.2s, background 0.2s;
   }
   .kopf__toggle-linien::before,
   .kopf__toggle-linien::after {
@@ -137,30 +158,69 @@ const istAktiv = (pfad: string) => aktuell === pfad;
     transform: translateY(-6px) rotate(-45deg);
   }
 
-  @media (max-width: 1100px) {
-    .kopf__innen {
-      flex-wrap: wrap;
+  /* Kleinere Browserfenster: Menüleiste etwas kompakter, Logo-Zeile niedriger */
+  @media (max-width: 1150px) {
+    .kopf {
+      --logo-zeile: 6rem;
+    }
+    .kopf__logo img {
+      width: 190px;
+    }
+    .kopf__nav ul {
+      gap: 0;
+      padding-inline: 0.5rem;
+    }
+    .kopf__nav a {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.92rem;
+    }
+    .kopf__nav a.ist-kontakt {
+      margin-left: 0.3rem;
+    }
+  }
+
+  /* Tablet & Handy: kompakte Leiste mit Menü-Knopf */
+  @media (max-width: 900px) {
+    .kopf {
+      --logo-zeile: 4.75rem;
+      top: 0;
+    }
+    .kopf__marke {
+      justify-content: space-between;
+      padding-inline: 1.25rem;
+    }
+    .kopf__logo img {
+      width: 150px;
     }
     .kopf__toggle {
       display: inline-flex;
     }
     .kopf__nav {
       display: none;
-      width: 100%;
-      padding-bottom: 1rem;
+      position: absolute;
+      inset: 100% 0 auto 0;
+      box-shadow: var(--schatten);
+      max-height: calc(100dvh - var(--logo-zeile));
+      overflow-y: auto;
     }
     .kopf__nav.offen {
       display: block;
     }
     .kopf__nav ul {
       flex-direction: column;
-      gap: 0;
+      align-items: stretch;
+      gap: 0.2rem;
+      padding: 0.75rem 1.25rem 1.25rem;
     }
     .kopf__nav a {
-      display: block;
-      padding: 0.7rem 0.25rem;
-      border-bottom: 1px solid var(--linie);
+      padding: 0.75rem 1rem;
       font-size: 1.05rem;
+      border-radius: 10px;
+    }
+    .kopf__nav a.ist-kontakt {
+      margin: 0.5rem 0 0;
+      text-align: center;
+      border-radius: 999px;
     }
   }
 </style>
