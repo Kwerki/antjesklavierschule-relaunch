@@ -20,6 +20,7 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
 ---
 
 <Layout beschreibung={d.beschreibung} bild={d.bild}>
+  <div class="startseite">
   <section class="held">
     <div class="container held__raster">
       <div class="held__text">
@@ -38,7 +39,7 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
 
   {
     neuigkeiten.length > 0 && (
-      <section class="abschnitt abschnitt--eng aktuelles" aria-labelledby="aktuelles-titel">
+      <section class="abschnitt abschnitt--eng aktuelles reihe-aktuelles" aria-labelledby="aktuelles-titel">
         <div class="container">
           <div class="abschnitt__kopf">
             <h2 id="aktuelles-titel">Aktuelles</h2>
@@ -59,7 +60,7 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
     )
   }
 
-  <section class="abschnitt">
+  <section class="abschnitt reihe-willkommen">
     <div class="container willkommen">
       <div class="prose textbreite">
         <Content />
@@ -69,7 +70,7 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
 
   {
     d.kacheln.length > 0 && (
-      <section class="abschnitt kacheln-bereich">
+      <section class="abschnitt kacheln-bereich reihe-kacheln">
         <div class="container">
           <ul class="kacheln">
             {d.kacheln.map((k) => (
@@ -92,7 +93,7 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
 
   {
     ueberMich && (
-      <section class="abschnitt">
+      <section class="abschnitt reihe-ueber">
         <div class="container ueber">
           {ueberMich.data.bild && (
             <img class="ueber__bild" src={url(ueberMich.data.bild)} alt={ueberMich.data.bildAlt} loading="lazy" />
@@ -110,7 +111,7 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
 
   {
     d.praxis && (
-      <section class="abschnitt">
+      <section class="abschnitt reihe-praxis">
         <div class="container">
           <div class="praxis">
             <img src={url('/images/uploads/logo-angebote.png')} alt="" width="160" loading="lazy" />
@@ -126,9 +127,14 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
       </section>
     )
   }
+  </div>
 </Layout>
 
 <style>
+  .startseite {
+    display: flex;
+    flex-direction: column;
+  }
   .held {
     background:
       radial-gradient(circle at 90% 10%, var(--orange-hell), transparent 45%),
@@ -361,6 +367,46 @@ const ueberMich = await getEntry('seiten', 'ueber-mich');
     .praxis img {
       margin-inline: auto;
       width: 120px;
+    }
+  }
+
+  /* Handy: Kategorien als 2×2-Raster, „Über mich“ vor den Kategorien */
+  @media (max-width: 700px) {
+    .reihe-ueber {
+      order: 1;
+    }
+    .reihe-kacheln {
+      order: 2;
+    }
+    .reihe-praxis {
+      order: 3;
+    }
+    .willkommen {
+      text-align: left;
+      font-size: 1.02rem;
+    }
+    .kacheln {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+    .kachel {
+      aspect-ratio: 1;
+    }
+    .kachel__text {
+      padding: 0.8rem 0.9rem;
+    }
+    .kachel__titel {
+      font-size: 1.35rem;
+    }
+    .ueber__bild {
+      max-width: 13rem;
+    }
+    .praxis {
+      text-align: left;
+    }
+    .praxis img {
+      margin-inline: 0;
+      width: 90px;
     }
   }
 </style>

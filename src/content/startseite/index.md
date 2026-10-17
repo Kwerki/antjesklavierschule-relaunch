@@ -24,7 +24,7 @@ praxis:
 ---
 
 **Atmen – Sprechen – Singen – Klavier spielen** – das alles gibt es hier.
-Schau herein, ob für dich etwas dabei ist :)
+Schau herein, ob für dich etwas dabei ist :)
 
 Ich begleite und unterstütze dich, deine Ziele und Wünsche zu verfolgen.
 
