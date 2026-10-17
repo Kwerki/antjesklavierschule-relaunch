@@ -4,6 +4,7 @@ beschreibung: Klavierunterricht für Kinder, Jugendliche und Erwachsene in Hombe
 menu: true
 reihenfolge: 10
 logoZusatz: Klavierspielen
+logoVariante: klavier
 bild: /images/uploads/klavier-1.jpg
 bildAlt: Hände auf einer Klaviertastatur
 einleitung: Klavier spielen macht Spaß!

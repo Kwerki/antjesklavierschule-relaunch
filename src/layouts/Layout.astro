@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import type { NotenVariante } from '../components/Note.astro';
 import einstellungen from '../data/einstellungen.json';
 import { url } from '../lib/url';
 
@@ -11,9 +12,10 @@ interface Props {
   bild?: string;
   /** Ersetzt den Slogan unter dem Logo, z. B. „Atmen“ */
   logoZusatz?: string;
+  logoVariante?: NotenVariante;
 }
 
-const { title, beschreibung = einstellungen.untertitel, bild, logoZusatz } = Astro.props;
+const { title, beschreibung = einstellungen.untertitel, bild, logoZusatz, logoVariante } = Astro.props;
 const seitentitel = title ? `${title} – ${einstellungen.name}` : `${einstellungen.name} – ${einstellungen.slogan}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogBild = new URL(url(bild ?? '/images/uploads/antje-im-gruenen.jpg'), Astro.site);
@@ -41,7 +43,7 @@ const ogBild = new URL(url(bild ?? '/images/uploads/antje-im-gruenen.jpg'), Astr
   </head>
   <body>
     <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
-    <Header logoZusatz={logoZusatz} />
+    <Header logoZusatz={logoZusatz} logoVariante={logoVariante} />
     <main id="inhalt">
       <slot />
     </main>

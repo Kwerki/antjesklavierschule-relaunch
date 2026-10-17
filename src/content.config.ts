@@ -49,6 +49,7 @@ const seiten = defineCollection({
     menu: z.boolean().default(true),
     reihenfolge: z.number().default(50),
     logoZusatz: z.string().optional(),
+    logoVariante: z.enum(['standard', 'klavier', 'singen', 'sprechen', 'atmen']).default('standard'),
     bild: z.string().optional(),
     bildAlt: z.string().default(''),
     einleitung: z.string().optional(),

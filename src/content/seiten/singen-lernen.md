@@ -4,6 +4,7 @@ beschreibung: Gesangsunterricht, Stimmbildung und MitsingKonzerte mit Antje Wolf
 menu: true
 reihenfolge: 20
 logoZusatz: Singen
+logoVariante: singen
 bild: /images/uploads/singen-1.jpg
 bildAlt: Antje Wolf-Hublitz beim Singen
 einleitung: Singen macht Mut, singen macht fit, singen verbindet – beim Singen kommt gute Stimmung auf.

@@ -2,13 +2,15 @@
 import { getMenu } from '../lib/navigation';
 import { url } from '../lib/url';
 import einstellungen from '../data/einstellungen.json';
+import Note, { type NotenVariante } from './Note.astro';
 
 interface Props {
   /** Ersetzt den Slogan unter dem Logo, z. B. „Atmen“ */
   logoZusatz?: string;
+  logoVariante?: NotenVariante;
 }
 
-const { logoZusatz } = Astro.props;
+const { logoZusatz, logoVariante = 'standard' } = Astro.props;
 const zusatz = logoZusatz || einstellungen.slogan;
 const menu = await getMenu();
 const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '').replace(/\/$/, '') || '/';
@@ -17,7 +19,7 @@ const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$
 <header class="kopf">
   <div class="kopf__marke">
     <a class="kopf__logo" href={url('/')} aria-label={`${einstellungen.name} – zur Startseite`}>
-      <img class="kopf__note" src={url('/images/brand/home-note.svg')} alt="" width="300" height="330" />
+      <Note class="kopf__note" variante={logoVariante} />
       <span class="kopf__wortmarke">
         <span class="kopf__name">{einstellungen.name}</span>
         <span class="kopf__zusatz">{zusatz}</span>
@@ -94,13 +96,14 @@ const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$
   .kopf__logo:hover {
     color: var(--rot);
   }
-  .kopf__note {
+  .kopf__logo :global(.kopf__note) {
     height: 2.4em;
-    width: auto;
+    width: 2.4em;
+    margin-right: -0.25em;
     transform-origin: 40% 90%;
     transition: transform 0.25s;
   }
-  .kopf__logo:hover .kopf__note {
+  .kopf__logo:hover :global(.kopf__note) {
     transform: rotate(-8deg);
   }
   .kopf__wortmarke {

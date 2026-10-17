@@ -4,6 +4,7 @@ beschreibung: Atem-, Sprech- und Stimmtherapie auf Rezept sowie Sprechcoaching i
 menu: true
 reihenfolge: 30
 logoZusatz: Sprechen
+logoVariante: sprechen
 bild: /images/uploads/sprechen-1.jpg
 bildAlt: Antje Wolf-Hublitz im Gespräch
 einleitung: Atem-, Sprech- und Stimmtherapie auf Rezept

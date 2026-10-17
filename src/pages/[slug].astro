@@ -23,7 +23,7 @@ const neuigkeiten =
     : [];
 ---
 
-<Layout title={d.title} beschreibung={d.beschreibung || undefined} bild={d.bild} logoZusatz={d.logoZusatz}>
+<Layout title={d.title} beschreibung={d.beschreibung || undefined} bild={d.bild} logoZusatz={d.logoZusatz} logoVariante={d.logoVariante}>
   <section class:list={['seitenkopf', { 'seitenkopf--bild': d.bild }]}>
     <div class="container seitenkopf__raster">
       <div>

@@ -117,6 +117,16 @@ collections:
       - { name: menu, label: Im Hauptmenü anzeigen, widget: boolean, default: true }
       - { name: reihenfolge, label: Position im Menü, widget: number, value_type: int, default: 50, hint: 'Kleinere Zahl = weiter links' }
       - { name: logoZusatz, label: Text unter dem Logo, widget: string, required: false, hint: 'Ersetzt auf dieser Seite den Slogan „Finde deinen Rhythmus“ im Logo, z. B. „Atmen“. Leer lassen für den Slogan.' }
+      - name: logoVariante
+        label: Farbe der Note im Logo
+        widget: select
+        default: standard
+        options:
+          - { label: 'Standard (orange)', value: standard }
+          - { label: 'Klavier (creme / orange)', value: klavier }
+          - { label: 'Singen (rot / orange)', value: singen }
+          - { label: 'Sprechen (orange / rot)', value: sprechen }
+          - { label: 'Atmen (grün / orange)', value: atmen }
       - name: bereich
         label: Zusatzbereich
         widget: select

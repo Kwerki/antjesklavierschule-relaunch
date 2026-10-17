@@ -4,6 +4,7 @@ beschreibung: Atemtraining, Atemmassage und Atmen & Singen in der Gruppe nach Sc
 menu: true
 reihenfolge: 40
 logoZusatz: Atmen
+logoVariante: atmen
 bild: /images/uploads/atmen-1.jpg
 bildAlt: Antje Wolf-Hublitz atmet tief durch
 einleitung: Richtig atmen. Kann man denn auch falsch atmen?
