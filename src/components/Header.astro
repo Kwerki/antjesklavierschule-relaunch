@@ -41,7 +41,7 @@ const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$
     <ul>
       <li>
         <a class="ist-home" href={url('/')} aria-current={aktuell === '/' ? 'page' : undefined} title="Startseite">
-          <img src={url('/images/brand/home-note.svg')} alt="" width="28" height="31" />
+          <Note class="ist-home__note" variante={logoVariante} />
           <span class="ist-home__text">Startseite</span>
         </a>
       </li>
@@ -172,13 +172,13 @@ const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$
     padding: 0;
     margin-right: 0.35rem;
   }
-  .ist-home img {
-    width: 1.55rem;
-    height: auto;
+  .ist-home :global(.ist-home__note) {
+    width: 1.75rem;
+    height: 1.75rem;
     transform-origin: 40% 90%;
     transition: transform 0.25s;
   }
-  .ist-home:hover img {
+  .ist-home:hover :global(.ist-home__note) {
     transform: rotate(-12deg) scale(1.08);
   }
   .ist-home__text {
@@ -314,8 +314,9 @@ const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$
       font-size: 1.05rem;
       border-radius: 10px;
     }
-    .ist-home img {
-      width: 1.3rem;
+    .ist-home :global(.ist-home__note) {
+      width: 1.45rem;
+      height: 1.45rem;
     }
     .kopf__nav a.ist-home {
       display: flex;
