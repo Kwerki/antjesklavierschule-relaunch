@@ -3,7 +3,7 @@ title: Sprechcoaching
 beschreibung: Atem-, Sprech- und Stimmtherapie auf Rezept sowie Sprechcoaching in der Praxis AtemWelt Homberg (Efze).
 menu: true
 reihenfolge: 30
-logo: sprechen
+logoZusatz: Sprechen
 bild: /images/uploads/sprechen-1.jpg
 bildAlt: Antje Wolf-Hublitz im Gespräch
 einleitung: Atem-, Sprech- und Stimmtherapie auf Rezept

@@ -3,7 +3,7 @@ title: Atemtraining
 beschreibung: Atemtraining, Atemmassage und Atmen & Singen in der Gruppe nach Schlaffhorst-Andersen in Homberg (Efze).
 menu: true
 reihenfolge: 40
-logo: atmen
+logoZusatz: Atmen
 bild: /images/uploads/atmen-1.jpg
 bildAlt: Antje Wolf-Hublitz atmet tief durch
 einleitung: Richtig atmen. Kann man denn auch falsch atmen?

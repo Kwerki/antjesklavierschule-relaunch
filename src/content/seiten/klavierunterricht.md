@@ -3,7 +3,7 @@ title: Klavierunterricht
 beschreibung: Klavierunterricht für Kinder, Jugendliche und Erwachsene in Homberg (Efze) – mit Noten oder nach Intuition.
 menu: true
 reihenfolge: 10
-logo: klavier
+logoZusatz: Klavierspielen
 bild: /images/uploads/klavier-1.jpg
 bildAlt: Hände auf einer Klaviertastatur
 einleitung: Klavier spielen macht Spaß!

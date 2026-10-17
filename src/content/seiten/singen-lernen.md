@@ -3,7 +3,7 @@ title: Singen lernen
 beschreibung: Gesangsunterricht, Stimmbildung und MitsingKonzerte mit Antje Wolf-Hublitz in Homberg (Efze).
 menu: true
 reihenfolge: 20
-logo: singen
+logoZusatz: Singen
 bild: /images/uploads/singen-1.jpg
 bildAlt: Antje Wolf-Hublitz beim Singen
 einleitung: Singen macht Mut, singen macht fit, singen verbindet – beim Singen kommt gute Stimmung auf.

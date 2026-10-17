@@ -116,16 +116,7 @@ collections:
       - { name: beschreibung, label: Kurzbeschreibung für Google, widget: text, required: false }
       - { name: menu, label: Im Hauptmenü anzeigen, widget: boolean, default: true }
       - { name: reihenfolge, label: Position im Menü, widget: number, value_type: int, default: 50, hint: 'Kleinere Zahl = weiter links' }
-      - name: logo
-        label: Logo über dem Titel
-        widget: select
-        default: keins
-        options:
-          - { label: Kein Logo, value: keins }
-          - { label: Klavierspielen, value: klavier }
-          - { label: Singen, value: singen }
-          - { label: Sprechen, value: sprechen }
-          - { label: Atmen, value: atmen }
+      - { name: logoZusatz, label: Text unter dem Logo, widget: string, required: false, hint: 'Ersetzt auf dieser Seite den Slogan „Finde deinen Rhythmus“ im Logo, z. B. „Atmen“. Leer lassen für den Slogan.' }
       - name: bereich
         label: Zusatzbereich
         widget: select

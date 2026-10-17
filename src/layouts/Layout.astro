@@ -9,9 +9,11 @@ interface Props {
   title?: string;
   beschreibung?: string;
   bild?: string;
+  /** Ersetzt den Slogan unter dem Logo, z. B. „Atmen“ */
+  logoZusatz?: string;
 }
 
-const { title, beschreibung = einstellungen.untertitel, bild } = Astro.props;
+const { title, beschreibung = einstellungen.untertitel, bild, logoZusatz } = Astro.props;
 const seitentitel = title ? `${title} – ${einstellungen.name}` : `${einstellungen.name} – ${einstellungen.slogan}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogBild = new URL(url(bild ?? '/images/uploads/antje-im-gruenen.jpg'), Astro.site);
@@ -39,7 +41,7 @@ const ogBild = new URL(url(bild ?? '/images/uploads/antje-im-gruenen.jpg'), Astr
   </head>
   <body>
     <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
-    <Header />
+    <Header logoZusatz={logoZusatz} />
     <main id="inhalt">
       <slot />
     </main>

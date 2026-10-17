@@ -3,6 +3,14 @@
 @import '@fontsource/delius-swash-caps/latin-400.css';
 
 @font-face {
+  font-family: 'Kolage';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../fonts/Kolage-Light.otf') format('opentype');
+}
+
+@font-face {
   font-family: 'Lora Variable';
   font-style: italic;
   font-display: swap;
@@ -24,6 +32,7 @@
 
   --schrift: 'Lora Variable', Georgia, serif;
   --schrift-zier: 'Delius Swash Caps', 'Lora Variable', cursive;
+  --schrift-logo: 'Kolage', 'Helvetica Neue', Arial, sans-serif;
 
   --breite: 70rem;
   --breite-text: 44rem;
