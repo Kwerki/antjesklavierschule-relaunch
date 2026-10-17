@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import einstellungen from '../data/einstellungen.json';
+import { url } from '../lib/url';
+
+interface Props {
+  title?: string;
+  beschreibung?: string;
+  bild?: string;
+}
+
+const { title, beschreibung = einstellungen.untertitel, bild } = Astro.props;
+const seitentitel = title ? `${title} – ${einstellungen.name}` : `${einstellungen.name} – ${einstellungen.slogan}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogBild = new URL(url(bild ?? '/images/uploads/antje-im-gruenen.jpg'), Astro.site);
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{seitentitel}</title>
+    <meta name="description" content={beschreibung} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+    <link rel="sitemap" href={url('/sitemap-index.xml')} />
+    <meta name="theme-color" content="#b01929" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content={einstellungen.name} />
+    <meta property="og:title" content={seitentitel} />
+    <meta property="og:description" content={beschreibung} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogBild} />
+  </head>
+  <body>
+    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+    <Header />
+    <main id="inhalt">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

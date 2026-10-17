@@ -1,0 +1,166 @@
+---
+import { getMenu } from '../lib/navigation';
+import { url } from '../lib/url';
+import einstellungen from '../data/einstellungen.json';
+
+const menu = await getMenu();
+const aktuell = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '').replace(/\/$/, '') || '/';
+const istAktiv = (pfad: string) => aktuell === pfad;
+---
+
+<header class="kopf">
+  <div class="container kopf__innen">
+    <a class="kopf__logo" href={url('/')} aria-label={`${einstellungen.name} – zur Startseite`}>
+      <img src={url('/images/brand/logo-home.png')} alt={`${einstellungen.name} – ${einstellungen.slogan}`} width="744" height="361" />
+    </a>
+
+    <button class="kopf__toggle" aria-expanded="false" aria-controls="hauptmenu">
+      <span class="kopf__toggle-linien" aria-hidden="true"></span>
+      <span>Menü</span>
+    </button>
+
+    <nav id="hauptmenu" class="kopf__nav" aria-label="Hauptmenü">
+      <ul>
+        <li><a href={url('/')} aria-current={istAktiv('/') ? 'page' : undefined}>Home</a></li>
+        {
+          menu.map((m) => (
+            <li>
+              <a href={url(m.pfad)} aria-current={istAktiv(m.pfad) ? 'page' : undefined}>
+                {m.titel}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.kopf__toggle');
+  const nav = document.getElementById('hauptmenu');
+  toggle?.addEventListener('click', () => {
+    const offen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!offen));
+    nav?.classList.toggle('offen', !offen);
+  });
+</script>
+
+<style>
+  .kopf {
+    background: var(--weiss);
+    border-bottom: 1px solid var(--linie);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .kopf__innen {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 5rem;
+  }
+  .kopf__logo img {
+    width: clamp(150px, 20vw, 210px);
+    height: auto;
+    margin-block: 0.25rem;
+  }
+  .kopf__nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.25rem 1rem;
+    flex-wrap: nowrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .kopf__nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.98rem;
+    padding: 0.35rem 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .kopf__nav a:hover {
+    color: var(--rot);
+    border-color: var(--orange);
+  }
+  .kopf__nav a[aria-current='page'] {
+    color: var(--rot);
+    border-color: var(--rot);
+  }
+
+  .kopf__toggle {
+    display: none;
+    align-items: center;
+    gap: 0.6rem;
+    background: none;
+    border: 1px solid var(--linie);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font: inherit;
+    color: var(--rot);
+    cursor: pointer;
+  }
+  .kopf__toggle-linien,
+  .kopf__toggle-linien::before,
+  .kopf__toggle-linien::after {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    position: relative;
+    transition: transform 0.2s;
+  }
+  .kopf__toggle-linien::before,
+  .kopf__toggle-linien::after {
+    content: '';
+    position: absolute;
+  }
+  .kopf__toggle-linien::before {
+    top: -6px;
+  }
+  .kopf__toggle-linien::after {
+    top: 6px;
+  }
+  .kopf__toggle[aria-expanded='true'] .kopf__toggle-linien {
+    background: transparent;
+  }
+  .kopf__toggle[aria-expanded='true'] .kopf__toggle-linien::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .kopf__toggle[aria-expanded='true'] .kopf__toggle-linien::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  @media (max-width: 1100px) {
+    .kopf__innen {
+      flex-wrap: wrap;
+    }
+    .kopf__toggle {
+      display: inline-flex;
+    }
+    .kopf__nav {
+      display: none;
+      width: 100%;
+      padding-bottom: 1rem;
+    }
+    .kopf__nav.offen {
+      display: block;
+    }
+    .kopf__nav ul {
+      flex-direction: column;
+      gap: 0;
+    }
+    .kopf__nav a {
+      display: block;
+      padding: 0.7rem 0.25rem;
+      border-bottom: 1px solid var(--linie);
+      font-size: 1.05rem;
+    }
+  }
+</style>

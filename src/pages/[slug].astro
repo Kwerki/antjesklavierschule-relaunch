@@ -1,0 +1,159 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Angebot from '../components/Angebot.astro';
+import YouTube from '../components/YouTube.astro';
+import Kontaktkarte from '../components/Kontaktkarte.astro';
+import Neuigkeit from '../components/Neuigkeit.astro';
+import SeitenLogo from '../components/SeitenLogo.astro';
+import einstellungen from '../data/einstellungen.json';
+import { url } from '../lib/url';
+
+export async function getStaticPaths() {
+  const seiten = await getCollection('seiten');
+  return seiten.map((seite) => ({ params: { slug: seite.id }, props: { seite } }));
+}
+
+const { seite } = Astro.props;
+const { Content } = await render(seite);
+const d = seite.data;
+
+const neuigkeiten =
+  d.bereich === 'aktuelles'
+    ? (await getCollection('aktuelles', ({ data }) => !data.entwurf)).sort((a, b) => b.data.datum.valueOf() - a.data.datum.valueOf())
+    : [];
+---
+
+<Layout title={d.title} beschreibung={d.beschreibung || undefined} bild={d.bild}>
+  <section class:list={['seitenkopf', { 'seitenkopf--bild': d.bild }]}>
+    <div class="container seitenkopf__raster">
+      <div>
+        {d.logo !== 'keins' && <SeitenLogo bereich={d.logo} />}
+        <h1>{d.title}</h1>
+        {d.einleitung && <p class="seitenkopf__einleitung">{d.einleitung}</p>}
+      </div>
+      {d.bild && <img class="seitenkopf__bild" src={url(d.bild)} alt={d.bildAlt} fetchpriority="high" />}
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <div class="container">
+      <div class="prose textbreite">
+        <Content />
+      </div>
+
+      {
+        d.angebote.length > 0 && (
+          <div class="angebote">
+            <h2>Angebote &amp; Preise</h2>
+            {d.angebote.map((a) => (
+              <Angebot {...a} />
+            ))}
+          </div>
+        )
+      }
+
+      {d.zitat && <blockquote class="zitat">{d.zitat}</blockquote>}
+
+      {
+        d.bereich === 'youtube' && (
+          <div class="videos">
+            {einstellungen.videos.map((v) => (
+              <YouTube id={v.id} titel={v.titel} />
+            ))}
+            <p>
+              <a class="button button--hell" href={einstellungen.youtubeKanal} target="_blank" rel="noopener">
+                Zum YouTube-Kanal
+              </a>
+            </p>
+          </div>
+        )
+      }
+
+      {
+        d.bereich === 'aktuelles' && (
+          <div class="neuigkeiten">
+            {neuigkeiten.length === 0 && <p>Zurzeit gibt es keine Neuigkeiten.</p>}
+            {neuigkeiten.map((n) => (
+              <Neuigkeit eintrag={n} />
+            ))}
+          </div>
+        )
+      }
+
+      {d.bereich === 'kontakt' && <Kontaktkarte />}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .seitenkopf {
+    background:
+      radial-gradient(circle at 0% 100%, var(--orange-hell), transparent 40%),
+      linear-gradient(180deg, var(--weiss), var(--creme-hell));
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+  }
+  .seitenkopf--bild .seitenkopf__raster {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+  }
+  .seitenkopf h1 {
+    margin-bottom: 0.5rem;
+  }
+  .seitenkopf__einleitung {
+    font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+    color: var(--text-leise);
+    font-style: italic;
+    margin: 0;
+  }
+  .seitenkopf__bild {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--schatten);
+  }
+
+  .angebote {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .angebote h2 {
+    margin: 0;
+  }
+
+  .zitat {
+    margin: 3rem auto 0;
+    max-width: var(--breite-text);
+    text-align: center;
+    font-family: var(--schrift-zier);
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    color: var(--rot);
+  }
+  .zitat::before {
+    content: '♪ ';
+    color: var(--orange);
+  }
+
+  .videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .neuigkeiten {
+    display: grid;
+    gap: 1.5rem;
+    max-width: var(--breite-text);
+  }
+
+  @media (max-width: 800px) {
+    .seitenkopf--bild .seitenkopf__raster {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

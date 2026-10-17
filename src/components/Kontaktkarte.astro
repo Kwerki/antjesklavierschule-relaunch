@@ -1,0 +1,66 @@
+---
+import einstellungen from '../data/einstellungen.json';
+import { tel } from '../lib/kontakt';
+
+const adresse = `${einstellungen.strasse}, ${einstellungen.ort}`;
+const karte = `https://www.openstreetmap.org/search?query=${encodeURIComponent(adresse)}`;
+---
+
+<div class="kontakt">
+  <div class="kontakt__karte">
+    <h2>Telefon</h2>
+    <p>
+      <span class="kontakt__label">Mobil (auch SMS)</span>
+      <a href={tel(einstellungen.telefonMobil)}>{einstellungen.telefonMobil}</a>
+    </p>
+    <p>
+      <span class="kontakt__label">Festnetz</span>
+      <a href={tel(einstellungen.telefonFestnetz)}>{einstellungen.telefonFestnetz}</a>
+    </p>
+  </div>
+  <div class="kontakt__karte">
+    <h2>E-Mail</h2>
+    <p><a href={`mailto:${einstellungen.email}`}>{einstellungen.email}</a></p>
+    <a class="button" href={`mailto:${einstellungen.email}?subject=${encodeURIComponent('Anfrage über die Website')}`}>E-Mail schreiben</a>
+  </div>
+  <div class="kontakt__karte">
+    <h2>Adresse</h2>
+    <p>
+      Praxis AtemWelt<br />
+      {einstellungen.inhaberin}<br />
+      {einstellungen.strasse}<br />
+      {einstellungen.ort}
+    </p>
+    <a href={karte} target="_blank" rel="noopener">Auf der Karte anzeigen</a>
+  </div>
+</div>
+
+<style>
+  .kontakt {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .kontakt__karte {
+    background: var(--weiss);
+    border: 1px solid var(--linie);
+    border-top: 5px solid var(--orange);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--schatten);
+  }
+  .kontakt__karte h2 {
+    margin-top: 0;
+    font-size: 1.6rem;
+  }
+  .kontakt__label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-leise);
+  }
+  .kontakt__karte a:not(.button) {
+    font-size: 1.1rem;
+    word-break: break-word;
+  }
+</style>

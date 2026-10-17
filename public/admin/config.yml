@@ -1,0 +1,187 @@
+# Sveltia CMS – Admin-Panel unter /admin
+# Doku: https://sveltiacms.app/en/docs
+# Die Felder hier müssen zu src/content.config.ts passen.
+
+backend:
+  name: github
+  repo: Kwerki/antjesklavierschule-relaunch
+  branch: main
+  # Login: Antje meldet sich mit einem GitHub-Zugangstoken an (siehe ANLEITUNG.md).
+  # Für "Mit GitHub anmelden" per Knopfdruck kann später ein kostenloser
+  # Sveltia-CMS-Authenticator (Cloudflare Worker) eingetragen werden:
+  # base_url: https://sveltia-cms-auth.<account>.workers.dev
+  commit_messages:
+    create: 'Neu: {{collection}} „{{slug}}“'
+    update: 'Aktualisiert: {{collection}} „{{slug}}“'
+    delete: 'Gelöscht: {{collection}} „{{slug}}“'
+    uploadMedia: 'Bild hochgeladen: {{path}}'
+    deleteMedia: 'Bild gelöscht: {{path}}'
+
+app_title: AtemWelt – Inhalte bearbeiten
+site_url: https://kwerki.github.io/antjesklavierschule-relaunch
+logo:
+  src: https://kwerki.github.io/antjesklavierschule-relaunch/favicon.svg
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+media_libraries:
+  default:
+    config:
+      max_file_size: 15000000
+      slugify_filename: true
+      # Hochgeladene Fotos werden automatisch verkleinert und als WebP gespeichert
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 1800
+          height: 1800
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  # ------------------------------------------------------------------ Startseite
+  - name: startseite
+    label: Startseite
+    icon: home
+    files:
+      - name: start
+        label: Startseite
+        file: src/content/startseite/index.md
+        preview_path: /
+        fields:
+          - { name: title, label: Große Überschrift, widget: string }
+          - { name: motto, label: Untertitel / Begrüßung, widget: string }
+          - { name: beschreibung, label: Kurzbeschreibung für Google, widget: text, hint: 'Ein bis zwei Sätze. Erscheint in Suchergebnissen.' }
+          - { name: bild, label: Hauptbild, widget: image }
+          - { name: bildAlt, label: Bildbeschreibung, widget: string, required: false, hint: 'Was ist auf dem Bild zu sehen? (für Barrierefreiheit)' }
+          - { name: body, label: Begrüßungstext, widget: markdown }
+          - name: kacheln
+            label: Kacheln (Angebote)
+            label_singular: Kachel
+            widget: list
+            summary: '{{fields.titel}}'
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: text, label: Kurzer Text, widget: string, required: false }
+              - { name: bild, label: Bild, widget: image }
+              - { name: link, label: Link, widget: string, hint: 'z. B. /klavierunterricht' }
+          - name: praxis
+            label: Hinweis-Box Praxis
+            widget: object
+            required: false
+            fields:
+              - { name: titel, label: Überschrift, widget: string }
+              - { name: text, label: Text, widget: markdown, buttons: [bold, italic, link], editor_components: [] }
+
+  # ------------------------------------------------------------------ Seiten
+  - name: seiten
+    label: Seiten
+    label_singular: Seite
+    icon: description
+    folder: src/content/seiten
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{title}}'
+    preview_path: /{{slug}}
+    sortable_fields:
+      fields: [reihenfolge, title]
+      default: { field: reihenfolge, direction: ascending }
+    summary: '{{title}}{{menu | ternary("", " (nicht im Menü)")}}'
+    fields:
+      - { name: title, label: Titel, widget: string }
+      - { name: einleitung, label: Einleitungssatz, widget: string, required: false, hint: 'Erscheint groß unter dem Titel.' }
+      - { name: bild, label: Titelbild, widget: image, required: false }
+      - { name: bildAlt, label: Bildbeschreibung, widget: string, required: false }
+      - { name: body, label: Text, widget: markdown, required: false }
+      - name: angebote
+        label: Angebote & Preise
+        label_singular: Angebot
+        widget: list
+        required: false
+        summary: '{{fields.titel}}'
+        fields:
+          - { name: titel, label: Titel, widget: string }
+          - { name: untertitel, label: Untertitel, widget: string, required: false, hint: 'z. B. „Einzelunterricht in Antjens Salon“' }
+          - { name: details, label: Stichpunkte, widget: list, required: false, hint: 'z. B. Dauer, Altersgruppe' }
+          - { name: preise, label: Preise, widget: list, required: false, hint: 'z. B. „Einzelstunde: 40 €“' }
+          - { name: text, label: Beschreibung, widget: markdown, required: false, buttons: [bold, italic, link, bulleted-list], editor_components: [] }
+          - { name: bild, label: Bild, widget: image, required: false }
+      - { name: zitat, label: Zitat am Seitenende, widget: string, required: false }
+      - { name: beschreibung, label: Kurzbeschreibung für Google, widget: text, required: false }
+      - { name: menu, label: Im Hauptmenü anzeigen, widget: boolean, default: true }
+      - { name: reihenfolge, label: Position im Menü, widget: number, value_type: int, default: 50, hint: 'Kleinere Zahl = weiter links' }
+      - name: logo
+        label: Logo über dem Titel
+        widget: select
+        default: keins
+        options:
+          - { label: Kein Logo, value: keins }
+          - { label: Klavierspielen, value: klavier }
+          - { label: Singen, value: singen }
+          - { label: Sprechen, value: sprechen }
+          - { label: Atmen, value: atmen }
+      - name: bereich
+        label: Zusatzbereich
+        widget: select
+        default: keiner
+        hint: 'Wird automatisch unter dem Text angezeigt. Normalerweise „Keiner“.'
+        options:
+          - { label: Keiner, value: keiner }
+          - { label: Liste der Neuigkeiten, value: aktuelles }
+          - { label: YouTube-Videos, value: youtube }
+          - { label: Kontaktdaten, value: kontakt }
+
+  # ------------------------------------------------------------------ Aktuelles
+  - name: aktuelles
+    label: Aktuelles
+    label_singular: Neuigkeit
+    icon: campaign
+    folder: src/content/aktuelles
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{title}}'
+    preview_path: /aktuelles
+    sortable_fields:
+      fields: [datum, title]
+      default: { field: datum, direction: descending }
+    summary: '{{datum | date("DD.MM.YYYY")}} – {{title}}{{entwurf | ternary(" (Entwurf)", "")}}'
+    fields:
+      - { name: title, label: Überschrift, widget: string }
+      - { name: datum, label: Datum, widget: datetime, time_format: false, date_format: DD.MM.YYYY, format: YYYY-MM-DD }
+      - { name: bild, label: Bild, widget: image, required: false }
+      - { name: body, label: Text, widget: markdown }
+      - { name: entwurf, label: Entwurf (noch nicht veröffentlichen), widget: boolean, default: false }
+
+  # ------------------------------------------------------------------ Einstellungen
+  - name: einstellungen
+    label: Einstellungen
+    icon: settings
+    files:
+      - name: allgemein
+        label: Kontaktdaten & YouTube
+        file: src/data/einstellungen.json
+        fields:
+          - { name: name, label: Name, widget: string }
+          - { name: slogan, label: Slogan, widget: string }
+          - { name: untertitel, label: Untertitel, widget: string }
+          - { name: inhaberin, label: Inhaberin, widget: string }
+          - { name: strasse, label: Straße, widget: string }
+          - { name: ort, label: PLZ und Ort, widget: string }
+          - { name: telefonMobil, label: Telefon mobil, widget: string }
+          - { name: telefonFestnetz, label: Telefon Festnetz, widget: string }
+          - { name: email, label: E-Mail, widget: string }
+          - { name: youtubeKanal, label: Link zum YouTube-Kanal, widget: string }
+          - name: videos
+            label: YouTube-Videos
+            label_singular: Video
+            widget: list
+            summary: '{{fields.titel}}'
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: id, label: Video-ID, widget: string, hint: 'Der Teil nach „watch?v=“ im YouTube-Link, z. B. G5qktkFhSF4' }

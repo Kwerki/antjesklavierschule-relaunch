@@ -1,0 +1,50 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import { url } from '../lib/url';
+
+interface Props {
+  eintrag: CollectionEntry<'aktuelles'>;
+}
+
+const { eintrag } = Astro.props;
+const { Content } = await render(eintrag);
+const datum = eintrag.data.datum.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<article class="neuigkeit">
+  {eintrag.data.bild && <img src={url(eintrag.data.bild)} alt="" loading="lazy" />}
+  <time datetime={eintrag.data.datum.toISOString().slice(0, 10)}>{datum}</time>
+  <h2>{eintrag.data.title}</h2>
+  <div class="prose"><Content /></div>
+</article>
+
+<style>
+  .neuigkeit {
+    background: var(--weiss);
+    border: 1px solid var(--linie);
+    border-left: 6px solid var(--orange);
+    border-radius: var(--radius);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    box-shadow: var(--schatten);
+  }
+  .neuigkeit img {
+    border-radius: calc(var(--radius) - 4px);
+    margin-bottom: 1rem;
+    width: 100%;
+    max-height: 22rem;
+    object-fit: cover;
+  }
+  time {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--orange);
+    font-weight: 600;
+  }
+  h2 {
+    margin: 0.25rem 0 0.75rem;
+  }
+  .prose :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

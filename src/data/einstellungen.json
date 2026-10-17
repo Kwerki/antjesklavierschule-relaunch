@@ -1,0 +1,22 @@
+{
+  "name": "AtemWelt",
+  "slogan": "Finde deinen Rhythmus",
+  "untertitel": "Atmen – Sprechen – Singen – Klavier spielen",
+  "inhaberin": "Antje Wolf-Hublitz",
+  "strasse": "Schwenkenweg 6",
+  "ort": "34576 Homberg (Efze)",
+  "telefonMobil": "0152 – 044 85 100",
+  "telefonFestnetz": "0 56 81 – 8 18 96 47",
+  "email": "antjes-klavierschule@outlook.com",
+  "youtubeKanal": "https://www.youtube.com/@salonmusikantjewolf4177",
+  "videos": [
+    {
+      "titel": "Musik für eine gesellige Runde",
+      "id": "G5qktkFhSF4"
+    },
+    {
+      "titel": "The Lord bless you and keep you",
+      "id": "3i05ngoBnRk"
+    }
+  ]
+}

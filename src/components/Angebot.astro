@@ -1,0 +1,121 @@
+---
+import { url } from '../lib/url';
+import { md } from '../lib/markdown';
+
+interface Props {
+  titel: string;
+  untertitel?: string;
+  details?: string[];
+  preise?: string[];
+  text?: string;
+  bild?: string;
+}
+
+const { titel, untertitel, details = [], preise = [], text, bild } = Astro.props;
+---
+
+<article class:list={['angebot', { 'angebot--bild': bild }]}>
+  {bild && <img class="angebot__bild" src={url(bild)} alt="" loading="lazy" />}
+  <div class="angebot__inhalt">
+    <h3 class="angebot__titel">{titel}</h3>
+    {untertitel && <p class="angebot__untertitel">{untertitel}</p>}
+    {
+      details.length > 0 && (
+        <ul class="angebot__details">
+          {details.map((d) => (
+            <li>{d}</li>
+          ))}
+        </ul>
+      )
+    }
+    {text && <div class="angebot__text" set:html={md(text)} />}
+    {
+      preise.length > 0 && (
+        <ul class="angebot__preise">
+          {preise.map((p) => (
+            <li>{p}</li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .angebot {
+    background: var(--weiss);
+    border: 1px solid var(--linie);
+    border-radius: var(--radius);
+    box-shadow: var(--schatten);
+    overflow: hidden;
+    display: grid;
+  }
+  .angebot--bild {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+  .angebot__bild {
+    width: 100%;
+    height: 100%;
+    min-height: 16rem;
+    object-fit: cover;
+  }
+  .angebot__inhalt {
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+  .angebot__titel {
+    margin: 0;
+  }
+  .angebot__untertitel {
+    color: var(--text-leise);
+    font-style: italic;
+    margin: 0.25rem 0 1rem;
+  }
+  .angebot__details {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+  .angebot__details li {
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.3rem;
+  }
+  .angebot__details li::before {
+    content: '♪';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+  }
+  .angebot__text {
+    font-size: 0.98rem;
+  }
+  .angebot__text :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .angebot__preise {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0 0;
+  }
+  .angebot__preise li {
+    background: var(--orange-hell);
+    color: var(--rot-dunkel);
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.35rem 0.95rem;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 760px) {
+    .angebot--bild {
+      grid-template-columns: 1fr;
+    }
+    .angebot__bild {
+      min-height: 0;
+      aspect-ratio: 3 / 2;
+    }
+  }
+</style>

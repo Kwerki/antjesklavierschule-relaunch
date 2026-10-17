@@ -1,0 +1,45 @@
+---
+import { url } from '../lib/url';
+
+interface Props {
+  bereich: 'klavier' | 'singen' | 'sprechen' | 'atmen';
+}
+
+const namen = { klavier: 'Klavierspielen', singen: 'Singen', sprechen: 'Sprechen', atmen: 'Atmen' };
+const { bereich } = Astro.props;
+---
+
+<div class="seitenlogo" aria-hidden="true">
+  <img src={url('/images/brand/note.svg')} alt="" width="56" height="56" />
+  <span>
+    <span class="seitenlogo__name">AtemWelt</span>
+    <span class="seitenlogo__bereich">{namen[bereich]}</span>
+  </span>
+</div>
+
+<style>
+  .seitenlogo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+  .seitenlogo img {
+    width: 3.2rem;
+    height: auto;
+  }
+  .seitenlogo > span {
+    display: grid;
+    line-height: 1.1;
+  }
+  .seitenlogo__name {
+    font-family: var(--schrift-zier);
+    color: var(--rot);
+    font-size: 1.6rem;
+  }
+  .seitenlogo__bereich {
+    color: var(--orange);
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+</style>

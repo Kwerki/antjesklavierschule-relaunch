@@ -1,0 +1,105 @@
+---
+import einstellungen from '../data/einstellungen.json';
+import { url } from '../lib/url';
+import { tel } from '../lib/kontakt';
+
+const jahr = new Date().getFullYear();
+---
+
+<footer class="fuss">
+  <div class="container fuss__raster">
+    <div>
+      <img class="fuss__note" src={url('/images/brand/note.svg')} alt="" width="60" height="60" />
+      <p class="fuss__name">{einstellungen.name}</p>
+      <p class="fuss__slogan">{einstellungen.untertitel}</p>
+    </div>
+
+    <div>
+      <h2 class="fuss__titel">Kontakt</h2>
+      <p>
+        {einstellungen.inhaberin}<br />
+        {einstellungen.strasse}<br />
+        {einstellungen.ort}
+      </p>
+    </div>
+
+    <div>
+      <h2 class="fuss__titel">Erreichbarkeit</h2>
+      <p>
+        Mobil: <a href={tel(einstellungen.telefonMobil)}>{einstellungen.telefonMobil}</a><br />
+        Festnetz: <a href={tel(einstellungen.telefonFestnetz)}>{einstellungen.telefonFestnetz}</a><br />
+        <a href={`mailto:${einstellungen.email}`}>{einstellungen.email}</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="container fuss__unten">
+    <p>© {jahr} {einstellungen.inhaberin}</p>
+    <ul>
+      <li><a href={url('/impressum')}>Impressum</a></li>
+      <li><a href={url('/datenschutz')}>Datenschutz</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .fuss {
+    background: var(--rot-dunkel);
+    color: var(--creme);
+    margin-top: 4rem;
+    font-size: 0.97rem;
+  }
+  .fuss a {
+    color: var(--creme);
+  }
+  .fuss a:hover {
+    color: var(--orange-hell);
+  }
+  .fuss__raster {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 2rem;
+    padding-block: 3rem 2rem;
+  }
+  .fuss__note {
+    width: 3.2rem;
+    height: auto;
+    margin-bottom: 0.5rem;
+  }
+  .fuss__name {
+    font-family: var(--schrift-zier);
+    font-size: 1.9rem;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .fuss__slogan {
+    opacity: 0.85;
+  }
+  .fuss__titel {
+    font-family: var(--schrift);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--orange-hell);
+    margin: 0 0 0.75rem;
+  }
+  .fuss__unten {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    padding-block: 1.25rem;
+    border-top: 1px solid rgb(248 240 221 / 0.2);
+    font-size: 0.9rem;
+  }
+  .fuss__unten p {
+    margin: 0;
+  }
+  .fuss__unten ul {
+    display: flex;
+    gap: 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>
