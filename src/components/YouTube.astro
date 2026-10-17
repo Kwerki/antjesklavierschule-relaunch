@@ -1,22 +1,43 @@
 ---
+import { Image } from 'astro:assets';
+
 // Datenschutzfreundlich: Das YouTube-Video wird erst nach einem Klick geladen
-// (youtube-nocookie.com). Vorher wird keine Verbindung zu Google aufgebaut.
+// (youtube-nocookie.com). Das Vorschaubild wird beim Build heruntergeladen und
+// von der eigenen Website ausgeliefert – Besucher kontaktieren YouTube vorher nicht.
 interface Props {
   id: string;
   titel: string;
 }
 const { id, titel } = Astro.props;
+
+async function findeVorschaubild(videoId: string) {
+  for (const groesse of ['maxresdefault', 'hqdefault']) {
+    const bildUrl = `https://i.ytimg.com/vi/${encodeURIComponent(videoId)}/${groesse}.jpg`;
+    try {
+      const antwort = await fetch(bildUrl, { method: 'HEAD' });
+      if (antwort.ok) return bildUrl;
+    } catch {
+      // offline oder YouTube nicht erreichbar – dann ohne Vorschaubild
+    }
+  }
+  return undefined;
+}
+
+const vorschaubild = await findeVorschaubild(id);
 ---
 
 <figure class="video">
   <div class="video__rahmen" data-video-id={id} data-video-titel={titel}>
+    {vorschaubild && <Image class="video__bild" src={vorschaubild} alt="" width={1280} height={720} format="webp" quality={75} />}
     <button class="video__start" type="button">
       <svg viewBox="0 0 68 48" width="68" height="48" aria-hidden="true">
         <path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.3.3 34 .3 34 .3s-21.3 0-26.5 1.4a8.5 8.5 0 0 0-6 6C.1 13 .1 24 .1 24s0 11 1.4 16.3a8.5 8.5 0 0 0 6 6C12.7 47.7 34 47.7 34 47.7s21.3 0 26.5-1.4a8.5 8.5 0 0 0 6-6C67.9 35 67.9 24 67.9 24s0-11-1.4-16.3z" fill="#b01929"></path>
         <path d="M45 24 27 14v20z" fill="#fff"></path>
       </svg>
-      <span class="video__titel">{titel}</span>
-      <span class="video__hinweis">Mit dem Klick wird das Video von YouTube geladen. Dabei werden Daten an YouTube (Google) übertragen.</span>
+      <span class="video__fuss">
+        <span class="video__titel">{titel}</span>
+        <span class="video__hinweis">Beim Abspielen wird das Video von YouTube geladen; dabei werden Daten an YouTube (Google) übertragen.</span>
+      </span>
     </button>
   </div>
 </figure>
@@ -39,6 +60,7 @@ const { id, titel } = Astro.props;
     margin: 0;
   }
   .video__rahmen {
+    position: relative;
     aspect-ratio: 16 / 9;
     border-radius: var(--radius);
     overflow: hidden;
@@ -50,7 +72,15 @@ const { id, titel } = Astro.props;
     height: 100%;
     border: 0;
   }
+  .video__bild {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   .video__start {
+    position: relative;
     width: 100%;
     height: 100%;
     display: flex;
@@ -60,8 +90,9 @@ const { id, titel } = Astro.props;
     gap: 0.75rem;
     padding: 1.5rem;
     border: 0;
-    background: none;
-    color: var(--creme);
+    background: linear-gradient(180deg, transparent 45%, rgb(60 8 16 / 0.85));
+    color: var(--weiss);
+    text-shadow: 0 1px 6px rgb(0 0 0 / 0.5);
     font: inherit;
     cursor: pointer;
     text-align: center;
@@ -78,13 +109,21 @@ const { id, titel } = Astro.props;
   .video__start svg {
     transition: transform 0.2s;
   }
+  .video__fuss {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: grid;
+    gap: 0.2rem;
+    padding: 1rem 1.25rem;
+    text-align: left;
+  }
   .video__titel {
     font-family: var(--schrift-zier);
-    font-size: 1.5rem;
+    font-size: 1.35rem;
+    line-height: 1.2;
   }
   .video__hinweis {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     opacity: 0.85;
-    max-width: 26rem;
   }
 </style>

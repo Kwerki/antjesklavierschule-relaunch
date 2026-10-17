@@ -15,6 +15,10 @@ export default defineConfig({
   base,
   trailingSlash: 'ignore',
   integrations: [sitemap()],
+  image: {
+    // YouTube-Vorschaubilder werden beim Build geladen und lokal ausgeliefert
+    domains: ['i.ytimg.com'],
+  },
   markdown: {
     processor: unified({
       // Einfacher Zeilenumbruch im CMS = Zeilenumbruch auf der Seite
