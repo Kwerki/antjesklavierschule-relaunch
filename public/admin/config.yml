@@ -20,9 +20,9 @@ backend:
     deleteMedia: 'Bild gelöscht: {{path}}'
 
 app_title: AtemWelt – Inhalte bearbeiten
-site_url: https://kwerki.github.io/antjesklavierschule-relaunch
+site_url: https://antjesklavierschule.de
 logo:
-  src: https://kwerki.github.io/antjesklavierschule-relaunch/favicon.svg
+  src: https://antjesklavierschule.de/favicon.svg
 
 media_folder: public/images/uploads
 public_folder: /images/uploads
