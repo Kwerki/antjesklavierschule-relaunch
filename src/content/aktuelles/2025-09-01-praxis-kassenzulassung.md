@@ -1,5 +1,5 @@
 ---
-title: Die Praxis AtemWelt ist für alle gesetzlichen Krankenkassen zugelassen.
+title: Die Praxis AtemWelt ist für alle gesetzlichen Krankenkassen zugelassen – auch Privatversicherte sind herzlich willkommen.
 datum: 2025-09-01
 entwurf: false
 ---

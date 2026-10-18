@@ -17,7 +17,7 @@ angebote:
       - "Preise ab 40 €"
 ---
 
-Wenn du dir Sorgen machst, dass du der stimm- oder sprachlichen Anforderung deines Alltags nicht gewachsen bist, kannst du dir von deinem HNO- oder Hausarzt ein Rezept ausstellen lassen und ich kann dich behandeln. Ich bin staatlich geprüfte Atem-, Sprech- und Stimmlehrerin, habe eine Kassenzulassung und bin somit berechtigt, dich in meiner Logopädie-Praxis *Atemwelt Homberg Efze* (unter dieser Bezeichnung findest du mich bei Google) zu behandeln. Das gilt ebenfalls für Kinder, die Sprachförderung brauchen.
+Wenn du dir Sorgen machst, dass du der stimm- oder sprachlichen Anforderung deines Alltags nicht gewachsen bist, kannst du dir von deinem HNO- oder Hausarzt ein Rezept ausstellen lassen und ich kann dich behandeln. Ich bin staatlich geprüfte Atem-, Sprech- und Stimmlehrerin, habe eine Kassenzulassung und bin somit berechtigt, dich in meiner Logopädie-Praxis *Atemwelt Homberg Efze* (unter dieser Bezeichnung findest du mich bei Google) zu behandeln – egal ob du gesetzlich oder privat versichert bist. Das gilt ebenfalls für Kinder, die Sprachförderung brauchen.
 
 **Zum Hörer werden**
 Komisch, dass als Erstes vom Hören geredet wird … Ja natürlich, die Ohren sorgen für blitzschnellen Abgleich, ob ich wirklich das sage, was ich sagen will.
