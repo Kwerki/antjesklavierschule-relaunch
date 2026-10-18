@@ -29,7 +29,9 @@ const ogBild = new URL(url(bild ?? '/images/uploads/antje-im-gruenen.jpg'), Astr
     <title>{seitentitel}</title>
     <meta name="description" content={beschreibung} />
     <link rel="canonical" href={canonical} />
+    <link rel="icon" href={url('/favicon.ico')} sizes="48x48" />
     <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={url('/favicon-96x96.png')} sizes="96x96" type="image/png" />
     <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
     <link rel="sitemap" href={url('/sitemap-index.xml')} />
     <meta name="theme-color" content="#b01929" />
