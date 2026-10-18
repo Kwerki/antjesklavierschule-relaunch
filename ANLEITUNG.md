@@ -16,7 +16,7 @@ Liebe Antje, so kannst du Texte, Bilder, Preise und Neuigkeiten auf deiner Websi
 
 ## Inhalte bearbeiten
 
-1. Öffne **https://kwerki.github.io/antjesklavierschule-relaunch/admin/**
+1. Öffne **https://antjesklavierschule.de/admin/**
 2. Wähle **„Sign in with Token“** und füge deinen Zugangsschlüssel ein.
 3. Links siehst du die Bereiche:
    - **Startseite** – Begrüßung, Hauptbild, Kacheln
